@@ -153,6 +153,20 @@ config TARGET_MX6UL_14X14_LPDDR2_ARM2
 	select DM
 	select DM_THERMAL
 
+config TARGET_MX6_TRUXQ01_SOM
+	bool "imx6_truxq01_som"
+	select MX6UL
+	select MX6ULL
+	select DM
+	select DM_THERMAL
+
+config TARGET_MX6_TRUXQ01_SOM_MFG
+	bool "imx6_truxq01_som"
+	select MX6UL
+	select MX6ULL
+	select DM
+	select DM_THERMAL
+
 config TARGET_MX6SX_17X17_ARM2
 	bool "mx6sx_17x17_arm2"
 	select MX6SX
@@ -203,6 +217,7 @@ config TARGET_MX6ULL_9X9_EVK
 	select MX6ULL
 	select DM
 	select DM_THERMAL
+
 
 config TARGET_SECOMX6
 	bool "secomx6 boards"
@@ -264,6 +279,7 @@ source "board/freescale/mx6sx_17x17_arm2/Kconfig"
 source "board/freescale/mx6sx_19x19_arm2/Kconfig"
 source "board/freescale/mx6ul_14x14_ddr3_arm2/Kconfig"
 source "board/freescale/mx6ul_14x14_lpddr2_arm2/Kconfig"
+source "board/freescale/imx6_truxq01_som/Kconfig"
 source "board/freescale/mx6ull_ddr3_arm2/Kconfig"
 source "board/freescale/mx6ullevk/Kconfig"
 source "board/gateworks/gw_ventana/Kconfig"

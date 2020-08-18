@@ -1,0 +1,12 @@
+if TARGET_MX6_TRUXQ01_SOM  || TARGET_MX6_TRUXQ01_SOM_MFG
+
+config SYS_BOARD
+	default "imx6_truxq01_som"
+
+config SYS_VENDOR
+	default "freescale"
+
+config SYS_CONFIG_NAME
+	default "imx6_truxq01_som"
+
+endif

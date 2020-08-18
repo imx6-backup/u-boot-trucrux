@@ -12,6 +12,10 @@
 #define MX6_PAD_DECLARE(prefix, name, pco, mc, mm, sio, si, pc) \
 	prefix##name = IOMUX_PAD(pco, mc, mm, sio, si, pc)
 
+#ifdef CONFIG_MX6_TRUXQ01
+#include "imx6_pins_truxq01.h"
+#endif
+#ifndef CONFIG_MX6_TRUXQ01
 #ifdef CONFIG_MX6QDL
 enum {
 #define MX6_PAD_DECL(name, pco, mc, mm, sio, si, pc) \
@@ -47,5 +51,6 @@ enum {
 #else
 #error "Please select cpu"
 #endif	/* CONFIG_MX6Q */
+#endif
 
 #endif	/*__ASM_ARCH_MX6_PINS_H__ */

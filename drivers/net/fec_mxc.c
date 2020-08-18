@@ -1119,6 +1119,37 @@ int fecmxc_initialize_multi(bd_t *bd, int dev_id, int phy_id, uint32_t addr)
 	bus = fec_get_miibus(base_mii, dev_id);
 	if (!bus)
 		return -ENOMEM;
+
+#ifdef CONFIG_MX6_TRUXQ01
+	if(CONFIG_FEC_MXC_PHYADDR == 0xFF)
+	{
+		/* TRUXQ01: Discovering Phy address*/
+		unsigned int addrs;
+		for (addrs = 0; addrs < 0x20; addrs++)
+		{
+			int id = 0;
+			int val;
+			val = fec_phy_read(bus, addrs, 0, 0x03);
+			id = val;
+			if (id == 0xFFFF)
+				continue;
+
+			val = fec_phy_read(bus, addrs, 0, 0x2);
+			if (val == 0xFFFF)
+				continue;
+
+			id |= val << 16;
+
+			printf("PHY indentify @ 0x%x = 0x%08x\n", addrs, id);
+
+			phy_id = addrs;
+
+		}
+	}
+	else
+		phy_id = CONFIG_FEC_MXC_PHYADDR;
+#endif
+
 #ifdef CONFIG_PHYLIB
 	phydev = phy_find_by_mask(bus, 1 << phy_id, PHY_INTERFACE_MODE_RGMII);
 	if (!phydev) {

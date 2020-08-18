@@ -530,6 +530,10 @@ int image_setup_libfdt(bootm_headers_t *images, void *blob,
 	}
 	fdt_fixup_ethernet(blob);
 
+#ifdef CONFIG_MX6_TRUXQ01
+	truxq01_fdt_update(images->ft_addr);
+#endif
+
 	/* Delete the old LMB reservation */
 	lmb_free(lmb, (phys_addr_t)(u32)(uintptr_t)blob,
 		 (phys_size_t)fdt_totalsize(blob));

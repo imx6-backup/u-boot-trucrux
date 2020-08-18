@@ -46,6 +46,12 @@ enum {
 	E_FSR		= BIT(2),
 	SST_WR		= BIT(3),
 	WR_QPP		= BIT(4),
+/* TRUXQ01: SPI: Adding support for SST26VF016B
+ * Flag entry for Global block protection
+ */
+#ifdef CONFIG_MX6_TRUXQ01
+	SST_BLOCK_PROTECT = BIT(7), 
+#endif
 };
 
 enum spi_nor_option_flags {
@@ -75,6 +81,10 @@ enum spi_nor_option_flags {
 #define CMD_WRITE_STATUS		0x01
 #define CMD_PAGE_PROGRAM		0x02
 #define CMD_WRITE_DISABLE		0x04
+/* TRUXQ01: SPI: Adding support for SST26VF016B */
+#ifdef CONFIG_MX6_TRUXQ01
+#define CMD_UNLOCK_BPR			0x98	/* Global Block Protection Unlock */
+#endif
 #define CMD_WRITE_ENABLE		0x06
 #define CMD_QUAD_PAGE_PROGRAM		0x32
 #define CMD_WRITE_EVCR			0x61
