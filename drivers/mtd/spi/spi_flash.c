@@ -970,6 +970,24 @@ int spi_flash_decode_fdt(const void *blob, struct spi_flash *flash)
 }
 #endif /* CONFIG_IS_ENABLED(OF_CONTROL) */
 
+/* TRUXD01: SPI: Adding support for SST26VF016B */
+#ifdef CONFIG_MX6_TRUXD01
+static int sst_unlock_block_protection(struct spi_flash *flash)
+{
+        int ret;
+        ret = spi_flash_cmd_write_enable(flash);
+	if (ret) {
+		printf("Write enable failed\n");
+                return ret;
+	}
+        ret = spi_flash_cmd(flash->spi, CMD_UNLOCK_BPR, NULL, 0);
+	if (ret) 
+		printf("ULBPR failed\n");
+        return ret;
+}
+#endif
+
+
 int spi_flash_scan(struct spi_flash *flash)
 {
 	struct spi_slave *spi = flash->spi;
@@ -1161,6 +1179,14 @@ int spi_flash_scan(struct spi_flash *flash)
 	if (ret < 0)
 		return ret;
 #endif
+
+/* TRUXD01: SPI: Adding support for SST26VF016B */
+#ifdef CONFIG_MX6_TRUXD01
+        if (params->flags & SST_BLOCK_PROTECT) {
+                sst_unlock_block_protection(flash);
+        }
+#endif
+
 
 #if CONFIG_IS_ENABLED(OF_CONTROL)
 	ret = spi_flash_decode_fdt(gd->fdt_blob, flash);

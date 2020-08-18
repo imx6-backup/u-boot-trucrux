@@ -12,5 +12,6 @@ obj-$(CONFIG_SPL_BUILD)	     += ddr.o
 obj-$(CONFIG_MP)             += mp.o
 ifdef CONFIG_MX6UL
 obj-$(CONFIG_CMD_BEE)        += bee.o
+obj-$(CONFIG_CMD_TAMPER)     += dryice_tamper.o active_tamper.o passive_tamper.o
 endif
 obj-$(CONFIG_MODULE_FUSE)        += module_fuse.o

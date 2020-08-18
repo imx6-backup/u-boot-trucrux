@@ -100,6 +100,11 @@ const struct spi_flash_params spi_flash_params_table[] = {
 	{"SST25VF040B",	   0xbf258d, 0x0,	64 * 1024,     8, RD_NORM,          SECT_4K | SST_WR},
 	{"SST25VF080B",	   0xbf258e, 0x0,	64 * 1024,    16, RD_NORM,	    SECT_4K | SST_WR},
 	{"SST25VF016B",	   0xbf2541, 0x0,	64 * 1024,    32, RD_NORM,	    SECT_4K | SST_WR},
+/* TRUXD01: SPI: Adding support for SST26VF016B,IS25LP016D */
+#ifdef CONFIG_MX6_TRUXD01
+	{"SST26VF016B",	   0xbf2641, 0x0,	64 * 1024,    32, RD_NORM,	    SECT_4K | SST_BLOCK_PROTECT},
+	{"IS25LP016D",     0x9d6015, 0x0,	64 * 1024,    32, RD_NORM,	    SECT_4K },
+#endif
 	{"SST25VF032B",	   0xbf254a, 0x0,	64 * 1024,    64, RD_NORM,	    SECT_4K | SST_WR},
 	{"SST25VF064C",	   0xbf254b, 0x0,	64 * 1024,   128, RD_NORM,		     SECT_4K},
 	{"SST25WF512",	   0xbf2501, 0x0,	64 * 1024,     1, RD_NORM,	    SECT_4K | SST_WR},
