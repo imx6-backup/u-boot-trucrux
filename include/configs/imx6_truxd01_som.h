@@ -105,7 +105,7 @@
 #define CONFIG_SYS_MMC_IMG_LOAD_PART	1
 
 #ifdef CONFIG_SYS_BOOT_NAND
-#define CONFIG_MFG_NAND_PARTITION "mtdparts=gpmi-nand:10m(boot),8m(kernel),1m(dtb),-(rootfs)\0 "
+#define CONFIG_MFG_NAND_PARTITION "mtdparts=gpmi-nand:64m(boot),16m(kernel),16m(dtb),16m(misc),-(rootfs)\0 "/*"mtdparts=gpmi-nand:10m(boot),8m(kernel),1m(dtb),-(rootfs)\0 "*/
 #else
 #define CONFIG_MFG_NAND_PARTITION ""
 #endif
@@ -136,10 +136,14 @@
 	"bootargs=console=ttymxc0,115200 ubi.mtd=3 "  \
 		"root=ubi0:rootfs rootfstype=ubifs "		     \
 		CONFIG_BOOTARGS_CMA_SIZE \
-		CONFIG_MFG_NAND_PARTITION \
-	"bootcmd=nand read ${loadaddr} 0xA00000 0x800000;"\
-		"nand read ${fdt_addr} 0x1200000 0x100000;"\
+		"mtdparts=gpmi-nand:64m(boot),16m(kernel),16m(dtb),16m(misc),-(rootfs)\0"\
+        "bootcmd=nand read ${loadaddr} 0x4000000 0x800000;"\
+                "nand read ${fdt_addr} 0x5000000 0x100000;"\
 		"bootz ${loadaddr} - ${fdt_addr}\0"
+		/*CONFIG_MFG_NAND_PARTITION \
+	"bootcmd=nand read ${loadaddr} 0xA00000 0x800000;"\
+		"nand read ${fdt_addr} 0x1200000 0x100000;"\*/
+		/*"bootz ${loadaddr} - ${fdt_addr}\0"*/
 
 #else
 #define CONFIG_EXTRA_ENV_SETTINGS \
