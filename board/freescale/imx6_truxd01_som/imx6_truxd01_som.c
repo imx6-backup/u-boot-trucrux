@@ -345,7 +345,8 @@ int board_mmc_getcd(struct mmc *mmc)
 		 * low voltage if no card
 		 */
 		ret = gpio_get_value(USDHC2_CD_GPIO);
-
+		ret=1; /*nilima added this line*/
+printf("nilima ret=%d\n",ret);
 		imx_iomux_v3_setup_multiple_pads(usdhc2_dat3_pads,
 						 ARRAY_SIZE(usdhc2_dat3_pads));
 #endif
@@ -392,6 +393,7 @@ int board_mmc_init(bd_t *bis)
 #ifndef CONFIG_SYS_USE_NAND
 			imx_iomux_v3_setup_multiple_pads(
 				usdhc2_pads, ARRAY_SIZE(usdhc2_pads));
+			printf("nilima NAND not used");
 #endif
 #endif
 			usdhc_cfg[1].sdhc_clk = mxc_get_clock(MXC_ESDHC2_CLK);
@@ -746,10 +748,10 @@ int checkboard(void)
                         printf("NAND\n");
                         break;
                 case SD1_BOOT:
-                        printf("MICRO SD\n");
+                        printf("MICRO SD 1\n");
                         break;
                 case SD2_BOOT:
-                        printf("MICRO SD\n");
+                        printf("MICRO SD 2\n");
                         break;
                 case UNKNOWN_BOOT:
                 default:
